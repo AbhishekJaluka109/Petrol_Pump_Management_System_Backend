@@ -3,10 +3,24 @@ import Employee from "./employees.model.js";
 import formatDate from "./format/date.js";
 
 const rolesSchema=new mongoose.Schema({
-    date: {
-        type: String,
+    start: {
+        type: Date,
+        display: "True",
+        inputType: "Time",
+        input:"True"
+    },
+    end: {
+        type: Date,
+        display: "True",
+        inputType: "Time",
+        input:"True"
+    },
+    Date: {
+        type: Date,
         default: ()=>formatDate(new Date()),
         display: "True",
+        inputType: "Date",
+        input:"True"
     },
     employee_id:{
         type: Number,
@@ -20,30 +34,18 @@ const rolesSchema=new mongoose.Schema({
         display:"True",
         inputType:"Number",
     },
-    shift:{
+    description:{
         type:String,
-        enum:['Day','Night'],
         required:true,
         input:"True",
         display:"True",
-        inputType:"Select",
+        inputType:"Text",
     },
     pump_no:{
         type:Number,
-        required:true,
         input:"True",
         display:"True",
         inputType:"Number",
-    },
-    services_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Service",
-        validate:{
-            validator: async function (value){
-                return await Service.exists({_id:value});
-            },
-            message:'No servicing details found.',
-        },
     },
     cashProvidedAtStart:{
         type:Number,

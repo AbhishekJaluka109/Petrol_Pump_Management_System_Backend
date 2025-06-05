@@ -40,7 +40,7 @@ export const giftValueCntl = async (req,res) =>{
 export const giftFieldInputCntl = async (req, res) => {
     try {
         const schemaDefinition = Gift.schema.paths;
-
+        console.log("giftfield");
         const filteredSchema = Object.keys(schemaDefinition)
         .filter(field => field !== '_id' && field !== '__v' && schemaDefinition[field].options.input==="True")  
         .map(field => {
@@ -101,7 +101,6 @@ export const giftDelete = async(req,res)=>{
         }
         catch(e){
             return res.status(500).json({sucess:false,error:"Error Deleting item"});
-            
         }
 };
 

@@ -51,6 +51,30 @@ const salesSchema = new mongoose.Schema({
         type: String,
         display: "True",
     },
+    
+    amount: {
+        type: Number,
+        display: "True",
+    },
+    quantity: {
+        type: Number,
+        required:true,
+        input: "True",
+        display: "True",
+        inputType: "Number", 
+    },
+    employee_id: {
+        type: Number,
+        ref: "Employee",
+        required: true,
+        validate: {
+            validator: async function (value) {
+                return await Employee.exists({ id: value });
+            },
+            message: 'Employee not found.',
+        },
+        display: "True", 
+    },
     vehicle_no: {
         type: String,
         input: "True",
@@ -74,29 +98,6 @@ const salesSchema = new mongoose.Schema({
         type: String,
         ref: "Company",
         input: "False",
-        display: "True", 
-    },
-    amount: {
-        type: Number,
-        display: "True",
-    },
-    quantity: {
-        type: Number,
-        required:true,
-        input: "True",
-        display: "True",
-        inputType: "Number", 
-    },
-    employee_id: {
-        type: Number,
-        ref: "Employee",
-        required: true,
-        validate: {
-            validator: async function (value) {
-                return await Employee.exists({ id: value });
-            },
-            message: 'Employee not found.',
-        },
         display: "True", 
     },
     payment_received: {

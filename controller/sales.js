@@ -87,11 +87,13 @@ export const salesPost = async(req,res)=>{
         let rollbackActions = [];
         console.log(1);
         try{
+            
+            sales.employee_id=req.user.id;
+            const employee=await Roles.findOne({employee_id:sales.employee_id,date:sales.date});
+            sales.pump_no=employee.pump_no;
+            console.log("pump_no");
+            console.log(sales);
             const newSales= new Sales(sales);
-            newSales.employee_id=req.user.id;
-            const employee=await Roles.findOne({employee_id:newSales.employee_id,date:newSales.date});
-            newSales.pump_no=employee.pump_no;
-            console.log(newSales);
             await newSales.save();
             rollbackActions.push(() => Sales.findByIdAndDelete(newSales._id));
             
@@ -116,9 +118,9 @@ export const salesPost = async(req,res)=>{
                 }
                 const newtransaction = new Finance({
                             amount: newSales.amount,
-                            type: 'Dr',
+                            transaction_type: 'Dr',
                             payment_mode: newSales.payment_mode === 'Cash' ? 'Cash' : 'Online',
-                            description: `Sale by ${employee.employee_id}`
+                            Reason: `Sale by ${employee.employee_id}`
                         });
                         const account=await Accounts.findOne();
                         if(newSales.payment_mode==='Cash'){

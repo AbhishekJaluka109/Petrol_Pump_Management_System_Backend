@@ -25,9 +25,16 @@ const financeSchema = new mongoose.Schema({
         display: "True",
         inputType: "Select", 
     },
+    amount:{
+        type:Number,
+        required:true,
+        display: "True",
+        inputType: "True",
+        input: "False",
+    },
     transaction_type:{
         type: String,
-        enum: ['Cr','Dr'],
+        enum: ['Cr','Dr','Transfer'],
         input: "True",
         display: "True",
         inputType: "Select", 

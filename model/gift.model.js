@@ -57,12 +57,12 @@ const giftSchema = new mongoose.Schema({
             default: ()=>formatDate(new Date()),
             display: "True",
     },
-    Expiry_Date: {
-        type: String,
-        required: true,
-        input: "True", 
-        display: "True", 
-        inputType: "Date", 
+    delivered: {
+        type: Boolean,
+        default: false,
+        input: "True",
+        display: "True",
+        inputType: "Checkbox", 
     },
 });
 

@@ -1,11 +1,12 @@
 import Roles from "../model/assigned_roles.model.js";
+import formatDate from "../model/format/date.js";
 
 export const rolesFieldCntl = async (req, res) => {
     try {
         const fields = Object.keys(Roles.schema.paths);
         const displayedFields = fields.filter(field => {
             const fieldOptions = Roles.schema.path(field).options;
-            return fieldOptions.display === 'True' && field!=="_id" && field!=="__v";
+            return fieldOptions.display === 'True' && field!=="_id" && field!=="__v" && field!=="Date";
         });
 
         res.status(200).send({
@@ -76,6 +77,10 @@ export const rolesFieldInputCntl = async (req, res) => {
 
 export const rolesPost = async(req,res)=>{
         const roles =req.body;
+        roles.Date=formatDate(roles.Date);
+        console.log(roles.Date);
+        roles.start = new Date(`${roles.Date}T${roles.start}`);
+        roles.end = new Date(`${roles.Date}T${roles.end}`);
         const newRoles= new Roles(roles)
         try{
             await newRoles.save();

@@ -82,12 +82,22 @@ export const financePost = async(req,res)=>{
                 account.cash=account.cash+account.amount
             }
         }
-        else{
+        else if(newGift.transaction_type==='Dr'){
             if(newGift.payment_mode==='Online'){
                 account.online=account.online-account.amount;
             }
             else{
                 account.online=account.online+account.amount
+            }
+        }
+        else {
+            if(newGift.payment_mode==='Online'){
+                account.online=account.online-account.amount;
+                account.cash=account.cash+account.amount;
+            }
+            else{
+                account.online=account.online+account.amount;
+                account.cash=account.cash-account.amount;
             }
         }
         newGift.cash=account.cash;

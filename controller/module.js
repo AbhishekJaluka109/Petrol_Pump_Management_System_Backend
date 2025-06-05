@@ -29,8 +29,7 @@ export const moduleCntl = async (req, res) => {
                     { index: 6, title: "Task" },
                     { index: 7, title: "Inspection" },
                     { index: 8, title: "Purchase" },
-                    { index: 9, title: "Finance"},
-                    { index: 10, title: "Accounts"}
+                    { index: 9, title: "Finance"}
                 ];
                 break;
             case "Assistant_Manager":  
